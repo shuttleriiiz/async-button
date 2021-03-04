@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+import { Button } from './components/Button';
+import './App.css'
+
+const sleep = async (timeout) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
 function App() {
+  const [clicked, setClicked] = useState();
+
+  const sync = () => {};
+
+  const succesfullAsync  = async () => {
+    await sleep(1000);
+  };
+
+  const errorAsync  = async () => {
+    await sleep(1000);
+    throw new Error('Whoops!')
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="columns">
+        <div className="column">
+          <Button onClick={sync}>Sync</Button>
+        </div>
+        <div className="column">
+          <Button onClick={succesfullAsync}>Async - Success</Button>
+        </div>
+        <div className="column">
+          <Button onClick={errorAsync}>Async - Error</Button>
+        </div>
+        <div className="column">
+          {!clicked && <Button onClick={() => setClicked(true)}>Unmount</Button>}
+        </div>
+      </div>
+      <div>
+        <div>
+          <strong>
+            Rules:
+          </strong>
+          <br/>
+          <ul>
+            <li>Do not change App.js</li>
+            <li>No error on browser console</li>
+            <li>Sync button should not have loading state when clicked</li>
+            <li>Async button should have loading state when clicked, and should back to normal state when the function resolved</li>
+            <li>Unmount button should be unmounted when clicked</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
