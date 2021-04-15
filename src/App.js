@@ -23,6 +23,11 @@ function App() {
     throw new Error('Whoops!')
   };
 
+  const unmount = async () => {
+    await sleep(500)
+    setClicked(true)
+  }
+
   return (
     <div className="App">
       <div className="columns">
@@ -36,7 +41,7 @@ function App() {
           <Button onClick={errorAsync}>Async - Error</Button>
         </div>
         <div className="column">
-          {!clicked && <Button onClick={() => setClicked(true)}>Unmount</Button>}
+          {!clicked && <Button onClick={unmount}>Unmount</Button>}
         </div>
       </div>
       <div>

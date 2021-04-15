@@ -3,6 +3,6 @@ import cn from 'classnames'
 
 export const Button = (props) => {
   return (
-    <button className={cn('button', {'is-loading': false})} {...props} />
+    <button className={cn('button', {'is-loading': false, 'is-danger': false })} {...props} />
   )
 }
