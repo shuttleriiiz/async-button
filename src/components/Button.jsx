@@ -2,7 +2,7 @@ import {useState, useEffect, useRef} from 'react'
 import React from 'react'
 import cn from 'classnames'
 
-export const Button = (props) => {
+export const Button = ({onClick, ...props}) => {
   const [isLoading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -21,7 +21,7 @@ export const Button = (props) => {
     setHasError(false);
 
     try {
-      await props.onClick();
+      await onClick();
     }
     catch (err) {
       if (isMountedRef.current) {
@@ -35,6 +35,6 @@ export const Button = (props) => {
   };
 
   return (
-    <button onClick={handleClick} className={cn('button', {'is-loading': isLoading, 'is-danger': hasError })} children={props.children} />
+    <button onClick={handleClick} className={cn('button', {'is-loading': isLoading, 'is-danger': hasError })} {...props} />
   )
 }
